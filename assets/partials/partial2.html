@@ -1,5 +1,31 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div class="bookmarkAdd">
+    <p>Step1 : Please add an url to bookmark.</p>
+    <input ng-keypress="keypressed($event)" type="text" data-ng-model="bookmarkToAdd">
+    </p>
+    <button ng-click="addBookmark()">
+        Add Bookmark
+    </button>
+</div>
+<p>Or select an existing bookmark :</p>
+<select ng-model="bookmark" ng-options="bookmark as bookmark.url for bookmark in bookmarks"></select>
+
+<div class="tagAdd">
+    <p>Step2 : Please add as much tag as you want to your bookmark</p>
+    <input ng-keypress="" type="text" data-ng-model="tagToAdd">
+    </p>
+    <button ng-click="addTag()">
+        Add Tag
+    </button>
+</div>
+
+<div class="currentBookmark">
+    Bookmark created or selected : {{bookmark.url}} Associated Tag List :
+    <ul>
+        <li ng-repeat="tag in tags">{{tag.tagName}}
+            <button ng-click="removeTag(tag.id)">
+                Remove Tag
+            </button>
+        </li>
+    </ul>
+</div>
+

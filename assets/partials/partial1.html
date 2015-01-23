@@ -1,6 +1,10 @@
-<p>Nom: <input type="text" data-ng-model="name"></p>
- 	<p data-ng-bind="name"></p>
-
-<p>Prénom: <input type="text" data-ng-model="firstName"></p>
-	{{firstName}}
+<div class="bookmarkList">
+    <span class = "tag"  ng-repeat="tag in completeTagList">
+        <input ng-click="tagFilter(tag.ref_bookmark, tag.id)" type="checkbox">{{tag.tagName | uppercase}}
+    </span>
+    <ul>
+        <li ng-repeat="bookmark in filteredBookmarks">{{bookmark.url}}
+        </li>
+    </ul>
+</div>
 
