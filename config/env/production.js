@@ -25,8 +25,8 @@ module.exports = {
    * Set the port in the production environment to 80                        *
    ***************************************************************************/
 
-  port: 80,
-  host: 'tutorialgreg.herokuapp.com',
+  port: process.env.PORT || 1337,
+  //host: 'tutorialgreg.herokuapp.com',
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
