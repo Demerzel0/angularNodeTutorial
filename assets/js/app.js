@@ -27,7 +27,7 @@ config(['$routeProvider',
 ]);
 
 app.factory('Bookmark', function ($resource) {
-    return $resource('http://localhost:1337/bookmark/:id', {
+    return $resource('/bookmark/:id', {
         id: '@id'
     }, {
         update: {
@@ -36,7 +36,7 @@ app.factory('Bookmark', function ($resource) {
     }); // Note the full endpoint address
 });
 app.factory('Tag', function ($resource) {
-    return $resource('http://localhost:1337/tag/:id', {
+    return $resource('/tag/:id', {
         id: '@id'
     }, {
         update: {
