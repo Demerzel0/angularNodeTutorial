@@ -26,6 +26,7 @@ module.exports = {
    ***************************************************************************/
 
   port: 80,
+  host: 'tutorialgreg.herokuapp.com',
 
   /***************************************************************************
    * Set the log level in production environment to "silent"                 *
