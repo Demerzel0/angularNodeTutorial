@@ -6,8 +6,11 @@
         Add Bookmark
     </button>
 </div>
-<p>Or select an existing bookmark :</p>
-<select ng-model="bookmark" ng-options="bookmark as bookmark.url for bookmark in bookmarks"></select>
+<div class="bookmarkSelect">
+    <p>Or select an existing bookmark :</p>
+    <select ng-model="bookmark" ng-options="bookmark as bookmark.url for bookmark in bookmarks"></select>
+
+</div>
 
 <div class="tagAdd">
     <p>Step2 : Please add as much tag as you want to your bookmark</p>
@@ -19,13 +22,20 @@
 </div>
 
 <div class="currentBookmark">
-    Bookmark created or selected : {{bookmark.url}} Associated Tag List :
-    <ul>
-        <li ng-repeat="tag in tags">{{tag.tagName}}
-            <button ng-click="removeTag(tag.id)">
-                Remove Tag
-            </button>
-        </li>
-    </ul>
+    <div class="bookmarkSelected">
+        Bookmark created or selected : 
+        <span class = "bookmark">{{bookmark.url}}</span>
+    </div>
+    <div class="taglist">
+        Associated Tag List :
+        <ul>
+            
+            <li ng-repeat="tag in tags"><span class = "tag">{{tag.tagName}}</span>
+                <button ng-click="removeTag(tag.id)">
+                    Remove Tag
+                </button>
+            </li>
+        </ul>
+    </div>
 </div>
 

@@ -22,7 +22,7 @@ controller('MyCtrl1', ['$scope',
             });*/
             /*            
             console.log(entries);*/
-
+            $scope.selectedTag = {};
             $scope.updateTags = function () {
                 if ($scope.bookmark) {
                     console.log($scope.bookmark)
@@ -35,7 +35,7 @@ controller('MyCtrl1', ['$scope',
             };
             $scope.updateCompleteTagList = function () {
                 $scope.completeTagList = Tag.query(function ($res) {
-                    console.log("coucou", $res)
+                    console.log("coucou", $scope.completeTagList)
                 });
             };
             $scope.updateCompleteTagList();
@@ -49,39 +49,46 @@ controller('MyCtrl1', ['$scope',
             $scope.$watch('bookmark', function () {
                 $scope.updateTags();
             });
+            // update The tag list with the checked info
+            $scope.$watch('selectedTag', function () {
+                angular.forEach($scope.completeTagList, function (value) {
+                    if ($scope.selectedTag[value.id]) {
+                        value.isSelected = true;
+                    } else {
+                        value.isSelected = false;
+                    }
+                });
+            }, true);
             $scope.keypressed = function ($event) {
                 if (event.which === 13) {
                     $scope.addBookmark();
                 }
 
             };
-            $scope.filterList = [];
-            $scope.tagFilter = function ($ref_bookmarkId, $tagId) {
-                var i,
-                    tagIndex = $scope.filterList.indexOf($ref_bookmarkId),
-                    tempFilteredBookmark = [];
-// TODO maintenir une structure plus complexe pour les filtre toggle ou pas (sur l'id du tag)
-                // on trouve si c'est un ajout ou une suppression
-                if (tagIndex === -1) {
-                    $scope.filterList.push($ref_bookmarkId);
-                } else {
-                    $scope.filterList.splice($ref_bookmarkId, 1);
-                }
-                // on parcours tous les bookmark et on ajoute dans la nouvelle list tous ceux 
-                for (var key in $scope.bookmarks) {
-                    if ($scope.bookmarks.hasOwnProperty(key)) {
-                        for (i = 0; i < $scope.filterList.length; i++) {
-                            if ($scope.bookmarks[key].id === $scope.filterList[i]) {
-                                tempFilteredBookmark.push($scope.bookmarks[key])
-                                console.log(tempFilteredBookmark)
+            $scope.tagFilter = function ($tagId) {
+                var atLeastOneSelected = false,
+                    filteredBookmarks = [];
+                
+                // afficher uniquement les éléments selectionnés par les checkboxs
+                angular.forEach($scope.completeTagList, function (tag) {
+                    if (tag.isSelected) {
+                        angular.forEach($scope.bookmarks, function (bookmark) {
+                            if (bookmark.id === tag.ref_bookmark) {
+                                if ( filteredBookmarks.indexOf(bookmark) === -1){
+                                    filteredBookmarks.push(bookmark);
+                                }                                
                             }
-                        }
-
-                       
+                        });
+                        $scope.filteredBookmarks = true;
+                        atLeastOneSelected = true;
                     }
+                });
+
+                if (!atLeastOneSelected) {
+                    $scope.filteredBookmarks = $scope.bookmarks;
+                } else {
+                    $scope.filteredBookmarks = filteredBookmarks;
                 }
-                console.log("filterlist",$scope.filterList)
-                $scope.filteredBookmarks = tempFilteredBookmark;
 
             };
             $scope.addBookmark = function () {

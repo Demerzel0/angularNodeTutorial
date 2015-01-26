@@ -1,9 +1,9 @@
 <div class="bookmarkList">
     <span class = "tag"  ng-repeat="tag in completeTagList">
-        <input ng-click="tagFilter(tag.ref_bookmark, tag.id)" type="checkbox">{{tag.tagName | uppercase}}
+        <input ng-checked="tagFilter(tag)" ng-model = "selectedTag[tag.id]" type="checkbox">{{tag.tagName | uppercase}}
     </span>
     <ul>
-        <li ng-repeat="bookmark in filteredBookmarks">{{bookmark.url}}
+        <li ng-repeat="bookmark in filteredBookmarks"><a href="{{bookmark.url}}">{{bookmark.url}}</a>
         </li>
     </ul>
 </div>
