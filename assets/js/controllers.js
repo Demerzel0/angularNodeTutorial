@@ -25,7 +25,6 @@ controller('MyCtrl1', ['$scope',
             $scope.selectedTag = {};
             $scope.updateTags = function () {
                 if ($scope.bookmark) {
-                    console.log($scope.bookmark)
                     $scope.tags = Tag.query({
                         ref_bookmark: $scope.bookmark.id
                     }, function () {
@@ -68,7 +67,6 @@ controller('MyCtrl1', ['$scope',
             $scope.tagFilter = function ($tagId) {
                 var atLeastOneSelected = false,
                     filteredBookmarks = [];
-                
                 // afficher uniquement les éléments selectionnés par les checkboxs
                 angular.forEach($scope.completeTagList, function (tag) {
                     if (tag.isSelected) {
@@ -106,7 +104,6 @@ controller('MyCtrl1', ['$scope',
                     $scope.tag.tagName = $scope.tagToAdd;
                     $scope.tag.ref_bookmark = $scope.bookmark.id;
                     Tag.save($scope.tag, function ($res) {
-                        console.log("just saved : ", $res)
                         $scope.updateTags();
                     });
                 } else {
@@ -114,13 +111,11 @@ controller('MyCtrl1', ['$scope',
                 }
             }
             $scope.removeTag = function ($tagId) {
-
                 Tag.delete({
                     id: $tagId
                 }, function () {
                     $scope.updateTags();
                 });
-
             }
 
         }
